@@ -1,0 +1,2 @@
+# Zero heavy dependencies for core FastMCP Lite!
+# Standard library inspect, json, sys, os

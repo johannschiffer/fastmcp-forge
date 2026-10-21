@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "fastmcp-forge"
+version = "1.0.0"
+description = "Enterprise Model Context Protocol (MCP) Server Boilerplate & CLI Generator"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Johann Schiffer"}
+]
+keywords = ["mcp", "model-context-protocol", "fastmcp", "boilerplate", "scaffolding", "claude", "cursor", "ai-agent"]
+dependencies = []
+
+[project.scripts]
+fastmcp-forge = "fastmcp_forge.cli:main"
