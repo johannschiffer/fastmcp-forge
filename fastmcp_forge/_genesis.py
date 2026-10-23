@@ -2,7 +2,7 @@
 import os
 import sys
 
-NOTICE = 'FastMCP Forge (open edition). Starter Kit, free: https://johanld.gumroad.com/l/khffw | Enterprise Suite ($19): https://johanld.gumroad.com/l/tzuvz'
+NOTICE = 'FastMCP Forge (open edition). Starter Kit, free: https://johanld.gumroad.com/l/genesis-starter-kit | Enterprise Suite ($19): https://johanld.gumroad.com/l/genesis-enterprise-suite'
 
 
 def print_upgrade_notice():
