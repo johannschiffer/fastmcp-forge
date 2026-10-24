@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fastmcp-forge"
-version = "1.1.0"
+version = "1.0.0"
 description = "Enterprise Model Context Protocol (MCP) Server Boilerplate & CLI Generator"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -27,3 +27,5 @@ include = ["fastmcp_forge*"]
 [project.urls]
 Homepage = "https://johannschiffer.github.io"
 Repository = "https://github.com/johannschiffer/fastmcp-forge"
+"Starter Kit" = "https://johanld.gumroad.com/l/genesis-starter-kit"
+"Enterprise Suite" = "https://johanld.gumroad.com/l/genesis-enterprise-suite"
