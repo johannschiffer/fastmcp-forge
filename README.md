@@ -6,6 +6,7 @@
 
 
 
+[![Release](https://img.shields.io/github/v/release/johannschiffer/fastmcp-forge?include_prereleases&color=blue)](https://github.com/johannschiffer/fastmcp-forge/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-brightgreen.svg)](https://python.org)
 [![MCP Compliant](https://img.shields.io/badge/MCP-2024--11--05-purple.svg)](https://modelcontextprotocol.io)
@@ -24,8 +25,14 @@
 
 ## Run without cloning
 
+Execute directly via `uvx` (PyPI direct or Git source):
+
 ```bash
+# Direct PyPI invocation:
 uvx fastmcp-forge
+
+# Or direct Git invocation (pre-PyPI sync):
+uvx --from git+https://github.com/johannschiffer/fastmcp-forge fastmcp-forge
 ```
 
 Claude Desktop / Cursor config entry:
@@ -36,14 +43,14 @@ Claude Desktop / Cursor config entry:
     "fastmcp-forge": {
       "command": "uvx",
       "args": [
-        "--from",
-        "git+https://github.com/johannschiffer/fastmcp-forge",
         "fastmcp-forge"
       ]
     }
   }
 }
 ```
+*(Alternative for pre-indexation: replace `"args": ["fastmcp-forge"]` with `"args": ["--from", "git+https://github.com/johannschiffer/fastmcp-forge", "fastmcp-forge"]`)*
+
 
 [![CI](https://github.com/johannschiffer/fastmcp-forge/actions/workflows/ci.yml/badge.svg)](https://github.com/johannschiffer/fastmcp-forge/actions/workflows/ci.yml)
 
