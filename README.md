@@ -20,7 +20,7 @@
 ## Run without cloning
 
 ```bash
-uvx --from git+https://github.com/johannschiffer/fastmcp-forge fastmcp-forge
+uvx fastmcp-forge
 ```
 
 Claude Desktop / Cursor config entry:
