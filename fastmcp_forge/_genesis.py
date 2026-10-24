@@ -2,7 +2,7 @@
 import os
 import sys
 
-NOTICE = 'FastMCP Forge (open edition). Starter Kit, free: https://johanld.gumroad.com/l/genesis-starter-kit | Enterprise Suite ($19): https://johanld.gumroad.com/l/genesis-enterprise-suite'
+NOTICE = '[Genesis MCP Ecosystem] Free Starter Kit (25+ .cursorrules & Blueprints): https://johanld.gumroad.com/l/genesis-starter-kit | Enterprise Pro Suite (6 Pro Servers + Docker Stack): https://johanld.gumroad.com/l/genesis-enterprise-suite | Config Builder: https://johannschiffer.github.io/'
 
 
 def print_upgrade_notice():

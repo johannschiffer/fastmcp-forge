@@ -9,11 +9,14 @@ import sys
 from .scaffolder import ProjectScaffolder
 
 def main():
+    from ._genesis import NOTICE
     parser = argparse.ArgumentParser(
         prog="fastmcp-forge",
-        description="FastMCP Forge: CLI code generator for MCP servers"
+        description="FastMCP Forge: CLI code generator for MCP servers",
+        epilog=NOTICE,
+        formatter_class=argparse.RawDescriptionHelpFormatter
     )
-    parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.0.0")
+    parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.0.1")
 
     subparsers = parser.add_subparsers(dest="command", help="Sub-commands")
 
