@@ -6,35 +6,21 @@
 
 > **100% Free & Open Source (MIT)**: All features, proxy rotation, migration simulation, Docker stacks, and recipes are completely unlocked. Support open development on [Ko-fi](https://ko-fi.com/johannschiffer).
 
-
-> 
-
-> ### ⚡ Enterprise Infrastructure & Tooling
-> | Component | Pricing | Delivery / Direct Access |
+> ### ⚡ Open Source Ecosystem & Community Tools
+> | Resource | Access | Description |
 > |---|---|---|
-> | **Starter Kit** | **Free ($0+)** | 25+ `.cursorrules`, `CLAUDE.md` stack rules & MCP config templates. [Download Free](https://github.com/johannschiffer) |
-> | **Enterprise Suite Pro** | **$9 Early Access** ~~$19~~ | 6 Pro MCP Servers, Zero-Downtime DB migrations, Residential Proxies, Docker Compose Stack & Commercial License. [Get Early Access ($9)](https://github.com/johannschiffer) |
-> | **Config Generator** | **Free Web Tool** | Interactive visual config generator for Claude Desktop & Cursor. [Open Generator](https://johannschiffer.github.io/) |
-
+> | **Ruleset Bundle** | **100% Free** | 55+ production rulesets & MCP config templates. [Download Free](https://johannschiffer.github.io/) |
+> | **Support & Donate** | **Ko-fi** | Support open-source maintenance. [Support on Ko-fi](https://ko-fi.com/johannschiffer) |
 
 <a href="https://glama.ai/mcp/servers/@johannschiffer/fastmcp-forge">
   <img width="380" height="200" src="https://glama.ai/mcp/servers/@johannschiffer/fastmcp-forge/badge" alt="fastmcp-forge MCP server" />
 </a>
-
-
 
 [![Release](https://img.shields.io/github/v/release/johannschiffer/fastmcp-forge?include_prereleases&color=blue)](https://github.com/johannschiffer/fastmcp-forge/releases)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10+-brightgreen.svg)](https://python.org)
 [![MCP Compliant](https://img.shields.io/badge/MCP-2024--11--05-purple.svg)](https://modelcontextprotocol.io)
 
-
-> ### ⚡ Enterprise Infrastructure & Tooling
-> | Package | Access | Features |
-> |---|---|---|
-> | **Starter Kit** | **Free ($0+)** | 25+ `.cursorrules`, `CLAUDE.md` stack rules & MCP config templates. [Download Free](https://github.com/johannschiffer) |
-> | **Enterprise Suite Pro** | **Free MIT** | 6 Pro MCP Servers, Zero-Downtime DB migrations, Residential Proxies, Docker Compose Stack & Commercial License. [Get Pro License](https://github.com/johannschiffer) |
-> | **Config Generator** | **Free Web Tool** | Interactive visual config generator for Claude Desktop & Cursor. [Open Generator](https://johannschiffer.github.io/) |
 
 **FastMCP Forge** is an ergonomic framework and CLI scaffolding engine that enables Python developers to build, test, and package compliant **Model Context Protocol (MCP)** servers in seconds.
 
@@ -67,7 +53,6 @@ Claude Desktop / Cursor config entry:
 }
 ```
 *(Alternative for pre-indexation: replace `"args": ["fastmcp-forge"]` with `"args": ["--from", "git+https://github.com/johannschiffer/fastmcp-forge", "fastmcp-forge"]`)*
-
 
 [![CI](https://github.com/johannschiffer/fastmcp-forge/actions/workflows/ci.yml/badge.svg)](https://github.com/johannschiffer/fastmcp-forge/actions/workflows/ci.yml)
 
@@ -154,22 +139,7 @@ Deploying MCP servers as remote team microservices, behind authentication proxie
 | **Multi-Stage Docker & Compose** | ❌ | ✅ |
 | **Full Pytest Suite & Enterprise Architecture Blueprint** | ❌ | ✅ |
 
-
-
 ---
-
-
-## Solución Enterprise (Genesis Suite)
-
-Para despliegues en producción y cargas intensivas con bypass de rate limits, soporte multi-tenant y configuraciones Docker precompiladas:
-
-- **Bypass de Rate Limits & IP Rotation:** Scaffolder para servidores MCP de nivel empresarial con soporte SSE, stdio y middleware de autenticación.
-- **Soporte Multi-Tenant & RBAC:** Control de accesos granular, gestión de secretos y auditoría criptográfica.
-- **Docker Compose Stacks:** Contenedores precompilados y configuraciones listas para producción con orquestación autónoma.
-
-  
-
-
 
 ## 📄 License
 
