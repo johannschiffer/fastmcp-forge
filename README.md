@@ -123,24 +123,6 @@ Add to your `claude_desktop_config.json`:
 
 ---
 
-## 💎 Need Enterprise Remote Deployment? Upgrade to FastMCP Forge Pro
-
-Deploying MCP servers as remote team microservices, behind authentication proxies, or in production clouds?
-
-| Feature | v1.0 (Legacy) | v2.0 (Open Source) |
-|---|:---:|:---:|
-| **@tool Schema Introspection** | ✅ | ✅ |
-| **JSON-RPC 2.0 stdio Transport** | ✅ | ✅ |
-| **CLI Project Scaffolding** | ✅ | ✅ |
-| **Dual Transport: stdio + Remote SSE HTTP** | ❌ | ✅ |
-| **Security & Auth Middleware** *(API Keys & Bearer Tokens)* | ❌ | ✅ |
-| **Token Bucket Rate Limiter** | ❌ | ✅ |
-| **Structured JSON Logs with Correlation IDs** | ❌ | ✅ |
-| **Multi-Stage Docker & Compose** | ❌ | ✅ |
-| **Full Pytest Suite & Enterprise Architecture Blueprint** | ❌ | ✅ |
-
----
-
 ## 📄 License
 
 MIT License. See [LICENSE](LICENSE) for details.
@@ -172,3 +154,11 @@ VPS hosting that work well with FastMCP Forge. Some links are referral links.
   - **High-Performance VPS & Nodes**: [Hetzner Cloud](https://www.hetzner.com/cloud) & [DigitalOcean](https://m.do.co/c/johannschiffer)
   - **Reliable Proxy Pool & IP Rotation**: [Webshare](https://www.webshare.io/) & [Bright Data](https://brightdata.com/)
   - **Documentation & Setup Guides**: [johannschiffer.github.io](https://johannschiffer.github.io/)
+
+---
+
+## Support
+
+[![Ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/johannschiffer)
+
+If you find this tool helpful, you can support its maintenance via Ko-fi.

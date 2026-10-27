@@ -1,4 +1,3 @@
-from ._genesis import NOTICE, print_upgrade_notice
 """
 FastMCP Server Engine (Enterprise Pro Edition).
 Implements official Model Context Protocol (2024-11-05) supporting both

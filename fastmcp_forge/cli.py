@@ -1,4 +1,3 @@
-from ._genesis import NOTICE
 """
 FastMCP Forge CLI.
 Commands:
