@@ -1,5 +1,5 @@
 """
-Authentication & Authorization Middleware (FastMCP Forge Pro).
+Authentication & Authorization Middleware.
 Validates API keys and Bearer tokens for incoming MCP HTTP / SSE connections.
 """
 from typing import Dict, Any, Optional

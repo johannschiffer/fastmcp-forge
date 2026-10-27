@@ -1,5 +1,5 @@
 """
-Remote SSE (Server-Sent Events) Transport (FastMCP Forge Pro).
+Remote SSE (Server-Sent Events) Transport.
 Implements the Model Context Protocol HTTP/SSE remote transport standard
 with integrated authentication and rate limiting.
 """

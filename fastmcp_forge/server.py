@@ -1,5 +1,5 @@
 """
-FastMCP Server Engine (Enterprise Pro Edition).
+FastMCP Server Engine.
 Implements official Model Context Protocol (2024-11-05) supporting both
 local stdio and remote HTTP/SSE transports, with decorator registry and auto-schemas.
 """
@@ -12,10 +12,10 @@ from typing import Callable, Dict, Any, List, Optional
 
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] [FastMCP-Pro] %(message)s",
+    format="%(asctime)s [%(levelname)s] [FastMCP] %(message)s",
     stream=sys.stderr
 )
-logger = logging.getLogger("FastMCPProServer")
+logger = logging.getLogger("FastMCPServer")
 
 class FastMCP:
     def __init__(self, name: str = "fastmcp-server", version: str = "1.0.0", description: str = ""):

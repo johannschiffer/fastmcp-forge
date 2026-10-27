@@ -1,5 +1,5 @@
 """
-Unit tests for FastMCP Server Engine (Pro Edition).
+Unit tests for FastMCP Server Engine.
 Verifies tool decorator, schema inference, JSON-RPC 2.0 protocol dispatch, and error codes.
 """
 import pytest

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fastmcp-forge"
-version = "2.0.0"
+version = "1.0.0"
 description = "Production-grade FastMCP server scaffolder and test harness with stdio and SSE transport support"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -25,8 +25,8 @@ fastmcp-forge = "fastmcp_forge.cli:main"
 include = ["fastmcp_forge*"]
 
 [project.urls]
-Homepage = "https://johannschiffer.github.io"
-Documentation = "https://johannschiffer.github.io"
+Homepage = "https://github.com/johannschiffer/fastmcp-forge"
+Documentation = "https://github.com/johannschiffer/fastmcp-forge#readme"
 Repository = "https://github.com/johannschiffer/fastmcp-forge"
 Issues = "https://github.com/johannschiffer/fastmcp-forge/issues"
 Funding = "https://ko-fi.com/johannschiffer"

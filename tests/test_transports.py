@@ -1,5 +1,5 @@
 """
-Unit tests for FastMCP Forge Pro SSE Transport.
+Unit tests for FastMCP Forge SSE Transport.
 """
 import json
 import pytest

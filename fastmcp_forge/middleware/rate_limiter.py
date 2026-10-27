@@ -1,5 +1,5 @@
 """
-Token Bucket Rate Limiter Middleware (FastMCP Forge Pro).
+Token Bucket Rate Limiter Middleware.
 Protects remote SSE/HTTP MCP endpoints from runaway AI agent tool invocation loops.
 """
 import time
