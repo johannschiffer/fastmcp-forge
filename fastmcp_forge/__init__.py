@@ -1,8 +1,9 @@
 """
-FastMCP Forge (Lite Edition)
-The Enterprise Model Context Protocol (MCP) Server Boilerplate & CLI Generator.
+fastmcp-forge (v2.0.0)
+Production-grade FastMCP server scaffolder and test harness with stdio and SSE transport support
+100% Free & Open Source under the MIT License.
 """
 
-__version__ = "1.0.4"
-__author__ = "Johann Schiffer / NEXUS"
+__version__ = "2.0.0"
+__author__ = "Johann Schiffer"
 __license__ = "MIT"

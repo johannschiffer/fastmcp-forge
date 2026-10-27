@@ -1,3 +1,4 @@
+from ._genesis import NOTICE
 """
 FastMCP Forge CLI.
 Commands:
@@ -9,15 +10,7 @@ import sys
 from .scaffolder import ProjectScaffolder
 
 def main():
-    from ._genesis import NOTICE
-    parser = argparse.ArgumentParser(
-        prog="fastmcp-forge",
-        description="FastMCP Forge: CLI code generator for MCP servers",
-        epilog=NOTICE,
-        formatter_class=argparse.RawDescriptionHelpFormatter
-    )
-    parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.0.1")
-
+    parser = argparse.ArgumentParser(description="FastMCP Forge: CLI code generator for MCP servers")
     subparsers = parser.add_subparsers(dest="command", help="Sub-commands")
 
     new_parser = subparsers.add_parser("new", help="Scaffold a new FastMCP server project")
@@ -38,18 +31,6 @@ def main():
         print("  pytest tests/")
     else:
         parser.print_help()
-
-
-
-_main_impl = main
-
-
-def main():
-    from ._genesis import print_upgrade_notice
-    try:
-        return _main_impl()
-    finally:
-        print_upgrade_notice()
 
 if __name__ == "__main__":
     main()

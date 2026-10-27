@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "fastmcp-forge": {
+      "command": "uvx",
+      "args": ["fastmcp-forge"]
+    }
+  }
+}

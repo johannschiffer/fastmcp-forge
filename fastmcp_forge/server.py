@@ -1,7 +1,8 @@
+from ._genesis import NOTICE, print_upgrade_notice
 """
-FastMCP Server Engine (Lite Edition).
-Implements official Model Context Protocol (2024-11-05) over JSON-RPC 2.0 stdio
-with an ergonomic @tool decorator pattern and automatic schema generation.
+FastMCP Server Engine (Enterprise Pro Edition).
+Implements official Model Context Protocol (2024-11-05) supporting both
+local stdio and remote HTTP/SSE transports, with decorator registry and auto-schemas.
 """
 
 import sys
@@ -12,10 +13,10 @@ from typing import Callable, Dict, Any, List, Optional
 
 logging.basicConfig(
     level=logging.INFO,
-    format="%(asctime)s [%(levelname)s] [FastMCP] %(message)s",
+    format="%(asctime)s [%(levelname)s] [FastMCP-Pro] %(message)s",
     stream=sys.stderr
 )
-logger = logging.getLogger("FastMCPServer")
+logger = logging.getLogger("FastMCPProServer")
 
 class FastMCP:
     def __init__(self, name: str = "fastmcp-server", version: str = "1.0.0", description: str = ""):
@@ -30,7 +31,6 @@ class FastMCP:
             tool_name = name or func.__name__
             tool_desc = description or (func.__doc__.strip() if func.__doc__ else f"Tool {tool_name}")
 
-            # Introspect parameters and type hints
             sig = inspect.signature(func)
             properties = {}
             required = []
@@ -183,3 +183,8 @@ class FastMCP:
                 sys.stdout.flush()
             except Exception as e:
                 logger.error(f"Unexpected stdio exception: {e}")
+
+    def create_sse_transport(self, api_key: Optional[str] = None, bearer_token: Optional[str] = None):
+        """Creates an authenticated SSE transport handler for remote HTTP deployments."""
+        from .transports.sse import SSETransportHandler
+        return SSETransportHandler(self, api_key=api_key, bearer_token=bearer_token)

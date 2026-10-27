@@ -4,8 +4,8 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "fastmcp-forge"
-version = "1.0.4"
-description = "Enterprise Model Context Protocol (MCP) Server Boilerplate & CLI Generator"
+version = "2.0.0"
+description = "Production-grade FastMCP server scaffolder and test harness with stdio and SSE transport support"
 readme = "README.md"
 requires-python = ">=3.10"
 license = {text = "MIT"}
@@ -25,8 +25,8 @@ fastmcp-forge = "fastmcp_forge.cli:main"
 include = ["fastmcp_forge*"]
 
 [project.urls]
+"Support / Donate" = "https://ko-fi.com/johannschiffer"
+"Documentation" = "https://johannschiffer.github.io"
 Funding = "https://github.com/sponsors/johannschiffer"
 Homepage = "https://johannschiffer.github.io"
 Repository = "https://github.com/johannschiffer/fastmcp-forge"
-"Starter Kit" = "https://johanld.gumroad.com/l/genesis-starter-kit"
-"Enterprise Suite" = "https://johanld.gumroad.com/l/genesis-enterprise-suite/EARLYACCESS"
