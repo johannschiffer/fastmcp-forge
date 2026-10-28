@@ -1,10 +1,13 @@
 """
 Project Scaffolder Engine.
-Generates complete, production-ready FastMCP projects with decorators, schemas, and tests.
+Generates complete FastMCP server projects with decorators, schemas, and tests.
 """
-import os
+import ast
+import re
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any, Dict, List
+
+_PROJECT_NAME_RE = re.compile(r"^[a-z0-9][a-z0-9_-]{0,63}$")
 
 SERVER_TEMPLATE = """\"\"\"
 {project_name} MCP Server
@@ -15,28 +18,30 @@ from fastmcp_forge.server import FastMCP
 app = FastMCP(
     name="{project_name}",
     version="1.0.0",
-    description="Production-ready Model Context Protocol server"
+    description="Model Context Protocol server"
 )
+
 
 @app.tool(description="Calculate mathematical operations safely")
 def calculate(a: float, b: float, operation: str = "add") -> float:
     \"\"\"Perform arithmetic operations.\"\"\"
     if operation == "add":
         return a + b
-    elif operation == "subtract":
+    if operation == "subtract":
         return a - b
-    elif operation == "multiply":
+    if operation == "multiply":
         return a * b
-    elif operation == "divide":
+    if operation == "divide":
         if b == 0:
             raise ValueError("Division by zero")
         return a / b
-    else:
-        raise ValueError(f"Unknown operation: {{operation}}")
+    raise ValueError(f"Unknown operation: {{operation}}")
+
 
 @app.tool(description="Get server health and status")
 def healthcheck() -> dict:
     return {{"status": "healthy", "server": "{project_name}"}}
+
 
 if __name__ == "__main__":
     app.run_stdio()
@@ -48,26 +53,33 @@ Unit tests for {project_name}.
 import pytest
 from server import app
 
+
 def test_tool_registration():
     tools = app.get_tools_definition()
     names = [t["name"] for t in tools]
     assert "calculate" in names
     assert "healthcheck" in names
 
+
 def test_calculate_tool():
     res = app.call_tool("calculate", {{"a": 10.0, "b": 5.0, "operation": "add"}})
     assert res == 15.0
+
 
 def test_calculate_div_zero():
     with pytest.raises(ValueError, match="Division by zero"):
         app.call_tool("calculate", {{"a": 10.0, "b": 0.0, "operation": "divide"}})
 """
 
+PYPROJECT_TEMPLATE = """[tool.pytest.ini_options]
+pythonpath = ["."]
+"""
+
 README_TEMPLATE = """# {project_name}
 
 Model Context Protocol (MCP) server generated with **FastMCP Forge**.
 
-## 🚀 Quickstart
+## Quickstart
 
 1. Install dependencies:
 ```bash
@@ -93,26 +105,77 @@ pytest tests/
 ```
 """
 
+
 class ProjectScaffolder:
     @staticmethod
+    def normalize_name(project_name: str) -> str:
+        if not isinstance(project_name, str) or not project_name.strip():
+            raise ValueError("Project name must be a non-empty string.")
+        if "/" in project_name or "\\" in project_name or ".." in project_name:
+            raise ValueError(f"Invalid project name '{project_name}': path separators and '..' are forbidden.")
+        clean_name = re.sub(r"\s+", "-", project_name.strip()).lower()
+        if not _PROJECT_NAME_RE.match(clean_name):
+            raise ValueError(
+                f"Invalid project name '{project_name}'. Use 1-64 lowercase alphanumeric characters, '-' or '_'."
+            )
+        return clean_name
+
+    @staticmethod
     def create_project(project_name: str, target_dir: str = ".") -> Dict[str, Any]:
-        clean_name = project_name.replace(" ", "-").lower()
-        root = Path(target_dir) / clean_name
+        clean_name = ProjectScaffolder.normalize_name(project_name)
+        base = Path(target_dir).resolve()
+        root = (base / clean_name).resolve()
+        if not root.is_relative_to(base):
+            raise ValueError(f"Target path '{root}' escapes base directory '{base}'.")
+
         root.mkdir(parents=True, exist_ok=True)
         (root / "tests").mkdir(exist_ok=True)
 
-        # Write server.py
         (root / "server.py").write_text(SERVER_TEMPLATE.format(project_name=clean_name), encoding="utf-8")
-        # Write tests/test_server.py
-        (root / "tests" / "test_server.py").write_text(TEST_TEMPLATE.format(project_name=clean_name), encoding="utf-8")
-        # Write README.md
+        (root / "tests" / "test_server.py").write_text(
+            TEST_TEMPLATE.format(project_name=clean_name), encoding="utf-8"
+        )
+        (root / "pyproject.toml").write_text(PYPROJECT_TEMPLATE, encoding="utf-8")
         (root / "README.md").write_text(README_TEMPLATE.format(project_name=clean_name), encoding="utf-8")
-        # Write requirements.txt
-        (root / "requirements.txt").write_text("pytest>=8.0.0\n", encoding="utf-8")
+        (root / "requirements.txt").write_text("fastmcp-forge>=2.0.1\npytest>=8.0.0\n", encoding="utf-8")
 
         return {
             "success": True,
             "project_name": clean_name,
-            "path": str(root.resolve()),
-            "files": ["server.py", "tests/test_server.py", "README.md", "requirements.txt"]
+            "path": str(root),
+            "files": [
+                "server.py",
+                "tests/test_server.py",
+                "pyproject.toml",
+                "README.md",
+                "requirements.txt",
+            ],
+        }
+
+    @staticmethod
+    def validate_project(project_dir: str) -> Dict[str, Any]:
+        root = Path(project_dir).resolve()
+        issues: List[str] = []
+        if not root.is_dir():
+            return {"valid": False, "path": str(root), "issues": ["Directory does not exist."]}
+
+        server_py = root / "server.py"
+        if not server_py.is_file():
+            issues.append("Missing server.py")
+        else:
+            src = server_py.read_text(encoding="utf-8")
+            try:
+                ast.parse(src, filename=str(server_py))
+            except SyntaxError as exc:
+                issues.append(f"SyntaxError in server.py: {exc}")
+            if "FastMCP" not in src:
+                issues.append("server.py does not reference FastMCP")
+
+        if not (root / "tests").is_dir():
+            issues.append("Missing tests/ directory")
+
+        return {
+            "valid": len(issues) == 0,
+            "path": str(root),
+            "issues": issues,
         }

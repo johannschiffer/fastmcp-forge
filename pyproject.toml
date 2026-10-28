@@ -1,14 +1,14 @@
 [build-system]
-requires = ["setuptools>=61.0"]
+requires = ["setuptools>=77.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "fastmcp-forge"
-version = "1.0.0"
-description = "Production-grade FastMCP server scaffolder and test harness with stdio and SSE transport support"
+version = "2.0.1"
+description = "FastMCP server framework, CLI project scaffolder, and stdio/SSE transport middleware"
 readme = "README.md"
 requires-python = ">=3.10"
-license = {text = "MIT"}
+license = "MIT"
 authors = [
     {name = "Johann Schiffer"}
 ]
@@ -23,6 +23,9 @@ fastmcp-forge = "fastmcp_forge.cli:main"
 
 [tool.setuptools.packages.find]
 include = ["fastmcp_forge*"]
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
 
 [project.urls]
 Homepage = "https://github.com/johannschiffer/fastmcp-forge"

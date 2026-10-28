@@ -1,9 +1,8 @@
 """
-fastmcp-forge (v1.0.0)
-Production-grade FastMCP server scaffolder and test harness with stdio and SSE transport support
-
+fastmcp-forge (v2.0.1)
+FastMCP server framework, CLI project scaffolder, and stdio/SSE transport middleware.
 """
 
-__version__ = "1.0.0"
+__version__ = "2.0.1"
 __author__ = "Johann Schiffer"
 __license__ = "MIT"

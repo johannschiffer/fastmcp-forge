@@ -1,134 +1,87 @@
-# fastmcp-forge (v1.0.0)
+# fastmcp-forge
 
-[![PyPI version](https://img.shields.io/badge/PyPI-v1.0.0-blue.svg)](https://pypi.org/project/fastmcp-forge/)
+[![PyPI version](https://img.shields.io/pypi/v/fastmcp-forge.svg)](https://pypi.org/project/fastmcp-forge/)
+[![CI](https://github.com/johannschiffer/fastmcp-forge/actions/workflows/ci.yml/badge.svg)](https://github.com/johannschiffer/fastmcp-forge/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Support on Ko-fi](https://img.shields.io/badge/Support%20on-Ko--fi-ff5e5b.svg)](https://ko-fi.com/johannschiffer)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-brightgreen.svg)](https://python.org)
+[![MCP Compliant](https://img.shields.io/badge/MCP-2024--11--05-purple.svg)](https://modelcontextprotocol.io)
 
 <a href="https://glama.ai/mcp/servers/@johannschiffer/fastmcp-forge">
   <img width="380" height="200" src="https://glama.ai/mcp/servers/@johannschiffer/fastmcp-forge/badge" alt="fastmcp-forge MCP server" />
 </a>
 
-[![Release](https://img.shields.io/github/v/release/johannschiffer/fastmcp-forge?include_prereleases&color=blue)](https://github.com/johannschiffer/fastmcp-forge/releases)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
-[![Python 3.10+](https://img.shields.io/badge/Python-3.10+-brightgreen.svg)](https://python.org)
-[![MCP Compliant](https://img.shields.io/badge/MCP-2024--11--05-purple.svg)](https://modelcontextprotocol.io)
+**FastMCP Forge** is a zero-dependency Python framework, CLI project scaffolder, and MCP server for building and testing **Model Context Protocol (2024-11-05)** servers over stdio or authenticated SSE transports.
 
-**FastMCP Forge** is an ergonomic framework and CLI scaffolding engine that enables Python developers to build, test, and package compliant **Model Context Protocol (MCP)** servers in seconds.
+## Features
 
----
+- **`@app.tool` Decorator & Schema Inference**: Introspects function signatures (including `Optional[T]`, `list[T]`, `dict[K, V]`, and `from __future__ import annotations`) into JSON Schema definitions.
+- **Built-in MCP Server & CLI Scaffolder**: Run `fastmcp-forge new <name>` from the terminal or connect `fastmcp-forge` directly to an MCP client to call `scaffold_project` and `validate_project`.
+- **Authenticated SSE Transport Handler**: Constant-time API key and Bearer token verification (`hmac.compare_digest`), bounded session tracking with TTL expiration, and token-bucket rate limiting.
 
-## Run without cloning
+## Quickstart
 
-Execute directly via `uvx` (PyPI direct or Git source):
-
-```bash
-# Direct PyPI invocation:
-uvx fastmcp-forge
-
-# Or direct Git invocation (pre-PyPI sync):
-uvx --from git+https://github.com/johannschiffer/fastmcp-forge fastmcp-forge
-```
-
-Claude Desktop / Cursor config entry:
+### 1. Run as an MCP Server (`uvx`)
 
 ```json
 {
   "mcpServers": {
     "fastmcp-forge": {
       "command": "uvx",
-      "args": [
-        "fastmcp-forge"
-      ]
+      "args": ["fastmcp-forge", "serve"]
     }
   }
 }
 ```
-*(Alternative for pre-indexation: replace `"args": ["fastmcp-forge"]` with `"args": ["--from", "git+https://github.com/johannschiffer/fastmcp-forge", "fastmcp-forge"]`)*
 
-[![CI](https://github.com/johannschiffer/fastmcp-forge/actions/workflows/ci.yml/badge.svg)](https://github.com/johannschiffer/fastmcp-forge/actions/workflows/ci.yml)
+Note: When invoked over a non-TTY pipe (`uvx fastmcp-forge` with no subcommand), `fastmcp-forge` automatically enters stdio MCP server mode.
 
-## ⚡ The Problem: MCP Boilerplate Burnout
+### Built-in MCP Tools
 
-In 2026, every AI developer is building MCP servers to connect tools to **Claude Desktop**, **Cursor**, **Windsurf**, and **Antigravity**. However, writing raw JSON-RPC 2.0 handlers from scratch requires:
-- Manually parsing JSON schemas for tool arguments.
-- Handling error codes (-32600, -32601, -32602, -32000).
-- Managing `sys.stdin` and `sys.stdout` stream buffers.
-- Writing test harnesses to mock agent tool invocations.
+| Tool | Description |
+|---|---|
+| `scaffold_project` | Generate a complete FastMCP server directory (`server.py`, `tests/test_server.py`, `pyproject.toml`, `README.md`, `requirements.txt`). |
+| `validate_project` | Parse and verify an existing FastMCP project directory for syntax and structure. |
 
-**FastMCP Forge** gives you an intuitive `@app.tool` decorator that introspects function signatures, infers types, generates valid schemas, and creates automated test suites instantly.
+### 2. CLI Project Scaffolder
 
----
+```bash
+pip install fastmcp-forge
+fastmcp-forge new analytics-mcp
+fastmcp-forge validate ./analytics-mcp
+```
 
-## 🛠️ Code Example: Build an MCP Server in 10 Lines
+### 3. Build a Custom Server in Python
 
 ```python
 from fastmcp_forge.server import FastMCP
 
-app = FastMCP(name="math-mcp", version="1.0.0")
+app = FastMCP(name="math-mcp", version="2.0.1")
 
-@app.tool(description="Multiply two numbers safely")
+
+@app.tool(description="Multiply two numbers")
 def multiply(a: float, b: float) -> float:
     return a * b
 
+
 if __name__ == "__main__":
-    app.run_stdio()
+    app.run()
 ```
-
----
-
-## 🚀 CLI Project Scaffolder
-
-Generate a full production-ready project with tests in 1 second:
-
-```bash
-python -m fastmcp_forge.cli new analytics-mcp
-```
-
-Output:
-```text
-[OK] Created new FastMCP project 'analytics-mcp'
-Generated files:
-  - server.py
-  - tests/test_server.py
-  - README.md
-  - requirements.txt
-```
-
----
-
-## 🖥️ Client Configuration
-
-Add to your `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "my-server": {
-      "command": "python",
-      "args": ["server.py"],
-      "cwd": "/path/to/my-server"
-    }
-  }
-}
-```
-
----
 
 ## Genesis MCP Ecosystem
 
 | Module | Description | Repository |
 |---|---|---|
-| **CrawlEngine MCP** | Anti-bot web scraping, clean Markdown, proxy rotation, and TLS evasion | [GitHub](https://github.com/johannschiffer/crawlengine-mcp) |
-| **BrowserBridge MCP** | Deterministic headless browser automation with cryptographic action receipts | [GitHub](https://github.com/johannschiffer/browserbridge-mcp) |
-| **PgSafe MCP** | Zero-trust PostgreSQL/SQLite guard, live PII masking, and schema inspection | [GitHub](https://github.com/johannschiffer/pgsafe-mcp) |
-| **OmniBridge MCP** | Multi-channel notification bus with persistent SQLite queue | [GitHub](https://github.com/johannschiffer/omnibridge-mcp) |
-| **SysFlow MCP** | Safe Linux administration, systemd automation, and port auditing | [GitHub](https://github.com/johannschiffer/sysflow-mcp) |
-| **FastMCP Forge** | Production FastMCP server scaffolder with stdio and SSE middleware | [GitHub](https://github.com/johannschiffer/fastmcp-forge) |
+| **CrawlEngine MCP** | HTTP web extraction to clean Markdown, JSON-LD parsing, and proxy rotation | [GitHub](https://github.com/johannschiffer/crawlengine-mcp) |
+| **BrowserBridge MCP** | Lightweight HTTP/DOM session automation with SHA-256 action receipts | [GitHub](https://github.com/johannschiffer/browserbridge-mcp) |
+| **PgSafe MCP** | Read-only PostgreSQL/SQLite query guard, PII masking, and dry-run mutations | [GitHub](https://github.com/johannschiffer/pgsafe-mcp) |
+| **OmniBridge MCP** | Multi-channel notification bus with SQLite retry queue | [GitHub](https://github.com/johannschiffer/omnibridge-mcp) |
+| **SysFlow MCP** | Linux systemd inspection, confined log tailing, and port auditing | [GitHub](https://github.com/johannschiffer/sysflow-mcp) |
+| **FastMCP Forge** | Zero-dependency FastMCP framework, CLI scaffolder, and SSE middleware | [GitHub](https://github.com/johannschiffer/fastmcp-forge) |
 
 ## Support
 
-If you find this project helpful, you can support its ongoing maintenance on [Ko-fi](https://ko-fi.com/johannschiffer).
+If you find this project useful, you can support maintenance on [Ko-fi](https://ko-fi.com/johannschiffer).
 
 ## License
 
-MIT © 2026 [Johann Schiffer](https://github.com/johannschiffer)
+MIT (c) 2026 [Johann Schiffer](https://github.com/johannschiffer)
