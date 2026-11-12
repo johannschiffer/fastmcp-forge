@@ -193,7 +193,7 @@ class FastMCP:
                 return {
                     "jsonrpc": "2.0",
                     "id": req_id,
-                    "error": {"code": -32601, "message": str(e)},
+                    "error": {"code": -32602, "message": str(e)},
                 }
             except TypeError as e:
                 return {
@@ -206,7 +206,7 @@ class FastMCP:
                 return {
                     "jsonrpc": "2.0",
                     "id": req_id,
-                    "error": {"code": -32000, "message": str(e)},
+                    "error": {"code": -32602 if str(e).startswith(("Unknown tool", "Tool not found")) else -32000, "message": str(e)},
                 }
 
         return {

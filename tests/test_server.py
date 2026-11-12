@@ -95,10 +95,10 @@ def test_fastmcp_jsonrpc_errors():
             raise ValueError("Negative value forbidden")
         return a
 
-    # Tool not found: -32601
+    # Tool not found: -32602
     nf_req = {"jsonrpc": "2.0", "id": 5, "method": "tools/call", "params": {"name": "unknown_tool"}}
     nf_resp = app.handle_request(nf_req)
-    assert nf_resp["error"]["code"] == -32601
+    assert nf_resp["error"]["code"] == -32602
 
     # Method not found: -32601
     bad_meth = {"jsonrpc": "2.0", "id": 6, "method": "invalid/method"}
