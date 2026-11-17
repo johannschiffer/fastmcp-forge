@@ -8,10 +8,12 @@ import inspect
 import json
 import logging
 import sys
+import time
 import types
 from typing import Any, Callable, Dict, List, Optional, Union, get_args, get_origin
 
 from . import __version__
+from ._genesis import record_blackbox_event
 
 logger = logging.getLogger("FastMCPServer")
 
@@ -113,7 +115,28 @@ class FastMCP:
         if not name or name not in self.tools:
             raise KeyError(f"Tool not found: '{name}'")
         func = self.tools[name]["func"]
-        return func(**arguments)
+        start_t = time.perf_counter()
+        try:
+            result = func(**arguments)
+        except Exception as exc:
+            duration_ms = round((time.perf_counter() - start_t) * 1000.0, 3)
+            record_blackbox_event(
+                "MCP_TOOL",
+                {"tool": name, "error": str(exc)},
+                source=self.name,
+                duration_ms=duration_ms,
+                status="error",
+            )
+            raise
+        duration_ms = round((time.perf_counter() - start_t) * 1000.0, 3)
+        record_blackbox_event(
+            "MCP_TOOL",
+            {"tool": name},
+            source=self.name,
+            duration_ms=duration_ms,
+            status="ok",
+        )
+        return result
 
     def handle_request(self, request: Dict[str, Any]) -> Optional[Dict[str, Any]]:
         if not isinstance(request, dict):
